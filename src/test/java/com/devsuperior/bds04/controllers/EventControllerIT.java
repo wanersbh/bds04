@@ -24,7 +24,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class EventControllerIT {
+class EventControllerIT {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -50,7 +50,7 @@ public class EventControllerIT {
 	}
 
 	@Test
-	public void insertShouldReturn401WhenNoUserLogged() throws Exception {
+	void insertShouldReturn401WhenNoUserLogged() throws Exception {
 
 		EventDTO dto = new EventDTO(null, "Expo XP", LocalDate.of(2021, 5, 18), "https://expoxp.com.br", 1L);
 		String jsonBody = objectMapper.writeValueAsString(dto);
@@ -65,7 +65,7 @@ public class EventControllerIT {
 	}
 
 	@Test
-	public void insertShouldInsertResourceWhenClientLoggedAndCorrectData() throws Exception {
+	void insertShouldInsertResourceWhenClientLoggedAndCorrectData() throws Exception {
 
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword);
 		LocalDate nextMonth = LocalDate.now().plusMonths(1L);
@@ -89,7 +89,7 @@ public class EventControllerIT {
 	}
 
 	@Test
-	public void insertShouldInsertResourceWhenAdminLoggedAndCorrectData() throws Exception {
+	void insertShouldInsertResourceWhenAdminLoggedAndCorrectData() throws Exception {
 
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
 		LocalDate nextMonth = LocalDate.now().plusMonths(1L);
@@ -113,7 +113,7 @@ public class EventControllerIT {
 	}
 
 	@Test
-	public void insertShouldReturn422WhenAdminLoggedAndBlankName() throws Exception {
+	void insertShouldReturn422WhenAdminLoggedAndBlankName() throws Exception {
 
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
 		LocalDate nextMonth = LocalDate.now().plusMonths(1L);
@@ -134,7 +134,7 @@ public class EventControllerIT {
 	}
 
 	@Test
-	public void insertShouldReturn422WhenAdminLoggedAndPastDate() throws Exception {
+	void insertShouldReturn422WhenAdminLoggedAndPastDate() throws Exception {
 
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
 		LocalDate pastMonth = LocalDate.now().minusMonths(1L);
@@ -155,7 +155,7 @@ public class EventControllerIT {
 	}
 
 	@Test
-	public void insertShouldReturn422WhenAdminLoggedAndNullCity() throws Exception {
+	void insertShouldReturn422WhenAdminLoggedAndNullCity() throws Exception {
 
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
 		LocalDate nextMonth = LocalDate.now().plusMonths(1L);
@@ -176,7 +176,7 @@ public class EventControllerIT {
 	}
 
 	@Test
-	public void findAllShouldReturnPagedResources() throws Exception {
+	void findAllShouldReturnPagedResources() throws Exception {
 		
 		ResultActions result =
 				mockMvc.perform(get("/events")

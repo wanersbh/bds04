@@ -22,7 +22,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootTest
 @AutoConfigureMockMvc
 @Transactional
-public class CityControllerIT {
+class CityControllerIT {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -48,7 +48,7 @@ public class CityControllerIT {
 	}
 
 	@Test
-	public void insertShouldReturn401WhenNoUserLogged() throws Exception {
+	void insertShouldReturn401WhenNoUserLogged() throws Exception {
 
 		CityDTO dto = new CityDTO(null, "Recife");
 		String jsonBody = objectMapper.writeValueAsString(dto);
@@ -63,7 +63,7 @@ public class CityControllerIT {
 	}
 	
 	@Test
-	public void insertShouldReturn403WhenClientLogged() throws Exception {
+	void insertShouldReturn403WhenClientLogged() throws Exception {
 
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword);
 
@@ -81,7 +81,7 @@ public class CityControllerIT {
 	}
 	
 	@Test
-	public void insertShouldInsertResourceWhenAdminLoggedAndCorrectData() throws Exception {
+	void insertShouldInsertResourceWhenAdminLoggedAndCorrectData() throws Exception {
 
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
 
@@ -101,7 +101,7 @@ public class CityControllerIT {
 	}
 
 	@Test
-	public void insertShouldReturn422WhenAdminLoggedAndBlankName() throws Exception {
+	void insertShouldReturn422WhenAdminLoggedAndBlankName() throws Exception {
 
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
 
@@ -121,7 +121,7 @@ public class CityControllerIT {
 	}
 
 	@Test
-	public void findAllShouldReturnAllResourcesSortedByName() throws Exception {
+	void findAllShouldReturnAllResourcesSortedByName() throws Exception {
 		
 		ResultActions result =
 				mockMvc.perform(get("/cities")
